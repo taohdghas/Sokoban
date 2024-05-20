@@ -11,12 +11,14 @@ public class GameManagerScript : MonoBehaviour
     public GameObject boxPrefab;
     public GameObject clearText;
     public GameObject goalPrefab;
+    public GameObject ParticlePrefab;
     //配列の宣言
     int[,] map;
     GameObject[,] field;
     // Start is called before the first frame update
     void Start()
     {
+        Screen.SetResolution(1280, 720, false);
         //マップの生成
         map = new int[,]
    {
