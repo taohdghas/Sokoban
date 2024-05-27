@@ -15,16 +15,38 @@ public class Particle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        //消滅するまでの時間を0.3秒とする
+        lifeTime = 0.3f;
+        //残り時間を初期化
+        leftLifeTime = lifeTime;
+        //現在のScaleを記録
+        defaultScale = transform.localScale;
+        //ランダムで決まる移動量の最大値
+        float maxVelocity = 5;
+        //各方向へランダムで飛ばす
+        velocity = new Vector3
+            (
+            Random.Range(-maxVelocity, maxVelocity),
+            Random.Range(-maxVelocity, maxVelocity),
+            0
+            );
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        //残り時間をカウントダウン
+        leftLifeTime -= Time.deltaTime;
+        //自身の座標を移動
+        transform.position += velocity * Time.deltaTime;
+        //残り時間二より徐々にScaleを小さくする
+        transform.localScale = Vector3.Lerp
+            (
+            new Vector3(0, 0, 0),
+            defaultScale,
+            leftLifeTime / lifeTime
+            );
+        //残り時間が0以下になったら自身のゲームオブジェクトを消滅
+        if (leftLifeTime <= 0) { Destroy(gameObject); }
     }
 }
-/*
- float minInclusive 返す乱数の最小値
- float maxInclusive 返す乱数の最大値
- */

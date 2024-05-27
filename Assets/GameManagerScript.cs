@@ -59,9 +59,6 @@ public class GameManagerScript : MonoBehaviour
             debugText += "\n";
         }
         Debug.Log(debugText);
-        //配列の実態の作成と初期化
-        //  map = new int[] { 0, 0, 0, 1, 0, 2, 0, 0, 0 };
-        //PrintArray();
     }
 
     // Update is called once per frame
@@ -155,6 +152,17 @@ public class GameManagerScript : MonoBehaviour
           moveTo.x, map.GetLength(0) - moveTo.y, 0);
         field[moveFrom.y, moveFrom.x].GetComponent<Move>().MoveTo(moveToPosition);
         field[moveFrom.y, moveFrom.x] = null;
+
+        //パーティクル
+      
+            const float num = 3;
+            for(int i = 0; i < num; i++)
+            {
+                Particle.Instantiate(
+                    ParticlePrefab,new Vector3(moveFrom.x,map.GetLength(0) - moveFrom.y,0),
+                    Quaternion.identity);
+            }
+        
         return true;
   }
 
